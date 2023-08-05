@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     default: "AI-companion",
     template: "%s | ai-companion",
   },
-  alternates: { canonical: "" },
+  alternates: { canonical: "https://companionai.vercel.app/" },
   description: 'Have you ever dreamed of talking with a superstar? Discover it here and now!',
   keywords: [
     "AI",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     title: "AI-companion",
     description:
       "Have you ever dreamed of talking with a superstar? Discover it here and now!.",
-    url: "",
+    url: "https://companionai.vercel.app/",
     siteName: "AI-companion",
     images: [
       {
@@ -69,8 +70,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>{children}</body>
+      </html>
+    </ClerkProvider>
   )
 }
