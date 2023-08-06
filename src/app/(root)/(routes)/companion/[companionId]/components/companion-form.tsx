@@ -18,6 +18,8 @@ import { Wand2 } from "lucide-react"
 
 
 
+
+
 type CompanionFormProps = {
   initialData: Companion | null,
   categories: Category[]
