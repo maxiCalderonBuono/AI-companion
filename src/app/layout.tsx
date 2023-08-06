@@ -73,7 +73,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <body className={cn("bg-secondary", inter.className,)}>{children}</body>
         </ThemeProvider>
