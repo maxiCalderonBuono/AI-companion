@@ -1,7 +1,7 @@
 
 "use client"
 
-import { Companion, Category } from "@prisma/client"
+import { Category, Companion } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
