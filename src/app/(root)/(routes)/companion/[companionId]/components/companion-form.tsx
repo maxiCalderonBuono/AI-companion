@@ -1,6 +1,6 @@
 
 "use client"
-
+import axios from "axios"
 import { Category, Companion } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Wand2 } from "lucide-react"
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from "next/navigation"
 
 
 
@@ -65,6 +67,9 @@ const formSchema = z.object({
 
 const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
 
+  const router = useRouter()
+  const { toast } = useToast()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -80,7 +85,24 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    try {
+
+      if (initialData) {
+        await axios.patch(`/api/companion/${initialData.id}`, values)
+      } else {
+        await axios.post("/api/companion", values)
+      }
+      toast({
+        description: "Success"
+      })
+      router.refresh();
+      router.push("/")
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong"
+      })
+    }
   }
   return (<section className="h-full max-w-3xl p-4 mx-auto space-y-2">
     <Form {...form}>
@@ -108,7 +130,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
               <FormItem className="col-span-2 md:col-span-1">
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input disabled={isLoading} placeholder="Elon Musk" {...field} />
+                  <Input disabled={isLoading} placeholder="Elon Musk" autoComplete="off" {...field} />
                 </FormControl>
                 <FormDescription>
                   This is how your AI Companion will be named.
@@ -124,7 +146,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
               <FormItem className="col-span-2 md:col-span-1">
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input disabled={isLoading} placeholder="CEO & Founder of Tesla, SpaceX..." {...field} />
+                  <Input disabled={isLoading} placeholder="CEO & Founder of Tesla, SpaceX..." autoComplete="off" {...field} />
                 </FormControl>
                 <FormDescription>
                   Short description for your AI Companion
