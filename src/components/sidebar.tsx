@@ -3,7 +3,14 @@
 import { cn } from "@/lib/utils";
 import { Home, Plus, Settings } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation"
-const SideBar = () => {
+
+
+type SideBar = {
+  handleClick?: () => void
+}
+
+const SideBar = ({ handleClick }: SideBar) => {
+
 
   const pathname = usePathname()
   const router = useRouter()
@@ -31,13 +38,14 @@ const SideBar = () => {
 
   const onNavigation = (url: string, pro: boolean) => {
 
-
+    if (handleClick) handleClick()
 
     return router.push(url)
   }
 
 
   return (
+
     <aside className="flex flex-col h-full space-y-4 text-primary bg-secondary">
       <div className="flex justify-center flex-1 p-3">
         <div className="space-y-2">
@@ -51,7 +59,9 @@ const SideBar = () => {
           ))}
         </div>
       </div>
-    </aside>);
+    </aside>
+
+  );
 }
 
 export default SideBar;
