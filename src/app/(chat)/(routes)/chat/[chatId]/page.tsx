@@ -44,7 +44,7 @@ const ChatPage = async ({ params }: ChatPageProps) => {
   }
 
 
-  return (<section>
+  return (<section className="h-full">
     <ChatClient companion={companion} />
   </section>);
 }

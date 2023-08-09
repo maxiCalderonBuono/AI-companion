@@ -15,6 +15,8 @@ async function main() {
         { name: "Animals" },
         { name: "Philosophy" },
         { name: "Scientists" },
+        { name: "Artist" },
+        { name: "Politicians" },
       ],
     });
   } catch (error) {
