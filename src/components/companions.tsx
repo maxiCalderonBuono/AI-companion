@@ -33,7 +33,7 @@ const Companions = ({ data }: CompanionsProps) => {
     )
   }
 
-  return <section className="grid grid-cols-1 gap-2 pb-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7">
+  return <section className="grid w-full grid-cols-1 gap-2 pb-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7">
     {data.map(item => (<Card key={item.id} className="transition border-0 cursor-pointer bg-primary/10 rounded-xl hover:opacity-75">
       <Link href={`/chat/${item.id}`}>
         <CardHeader className="flex items-center justify-center text-center text-muted-foreground">

@@ -32,7 +32,7 @@ const ChatMessages = ({ companion, isLoading, messages }: ChatMessagesProps) => 
     <div className="flex-1 pr-4 overflow-y-auto">
       <ChatMessage src={companion.src} role="system" content={`Hello, I'm ${companion.name}, ${companion.description}`} isLoading={fakeLoading} />
       {messages.map(message => (
-        <ChatMessage role={message.role} src={message.src} content={message.content} key={message.content} />
+        <ChatMessage role={message.role} src={companion.src} content={message.content} key={message.content} />
       ))}
       {isLoading && (
         <ChatMessage role="system" src={companion.src} isLoading />
