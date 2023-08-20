@@ -1,5 +1,6 @@
 "use client"
 
+import { useProModal } from "@/hooks/use-pro-modal";
 import { cn } from "@/lib/utils";
 import { Home, Plus, Settings } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation"
@@ -7,13 +8,15 @@ import { usePathname, useRouter } from "next/navigation"
 
 type SideBar = {
   handleClick?: () => void
+  isPro: boolean
 }
 
-const SideBar = ({ handleClick }: SideBar) => {
+const SideBar = ({ handleClick, isPro }: SideBar) => {
 
 
   const pathname = usePathname()
   const router = useRouter()
+  const proModal = useProModal()
 
   const routes = [
     {
@@ -37,6 +40,10 @@ const SideBar = ({ handleClick }: SideBar) => {
   ]
 
   const onNavigation = (url: string, pro: boolean) => {
+
+    if (pro && !isPro) {
+      return proModal.onOpen();
+    }
 
     if (handleClick) handleClick()
 

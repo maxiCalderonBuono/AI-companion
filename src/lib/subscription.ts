@@ -3,7 +3,7 @@ import prismaDb from "./prismadb";
 
 const DAYS_IN_MS = 86_400_00;
 
-export const checkSubscriptionId = async () => {
+export const checkSubscription = async () => {
   const { userId } = auth();
   if (!userId) return false;
 
@@ -12,10 +12,10 @@ export const checkSubscriptionId = async () => {
       userId,
     },
     select: {
-      stripCurrentPeriodEnd: true,
+      stripeCurrentPeriodEnd: true,
       stripeCustomerId: true,
       stripePriceId: true,
-      stripeSubscrptionId: true,
+      stripeSubscriptionId: true,
     },
   });
 
@@ -23,7 +23,7 @@ export const checkSubscriptionId = async () => {
 
   const isValid =
     userSubscription.stripePriceId &&
-    userSubscription.stripCurrentPeriodEnd?.getTime()! + DAYS_IN_MS >=
+    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAYS_IN_MS >=
       Date.now();
 
   return !!isValid;
