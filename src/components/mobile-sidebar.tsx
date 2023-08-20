@@ -9,7 +9,7 @@ import {
 import SideBar from "./sidebar";
 import { useState } from "react";
 
-const MobileSidebar = () => {
+const MobileSidebar = ({ isPro }: { isPro: boolean }) => {
   const [open, setOpen] = useState(false);
 
 
@@ -19,7 +19,7 @@ const MobileSidebar = () => {
         <Menu />
       </SheetTrigger>
       <SheetContent side="left" className="w-32 p-0 pt-10 bg-secondary">
-        <SideBar handleClick={() => setOpen(false)} />
+        <SideBar isPro={isPro} handleClick={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   );
